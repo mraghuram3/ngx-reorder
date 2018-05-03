@@ -1,0 +1,12 @@
+.drag{
+    height:30px;
+    width:100px;
+    background:lightblue;
+    cursor: pointer;
+    margin:8px;
+}
+.dragParn{
+    float:left;
+    position: relative;
+    padding:100px;
+}
