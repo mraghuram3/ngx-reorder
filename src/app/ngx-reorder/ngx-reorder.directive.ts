@@ -21,31 +21,28 @@ export class NgxReorderDirective {
   constructor() { }
 
   @HostListener('drag', ['$event']) private onDrag(event: any): void {
-    
+    // console.log(this.getIndex(event));
   }
   @HostListener('dragstart', ['$event']) private onDragStart(event: any): void {
-    
-    this.dragStartIndex = Number(event.target.attributes[4].nodeValue);
+    this.dragStartIndex = this.getIndex(event);
   }
   @HostListener('dragend', ['$event']) private onDragEnd(event: any): void {
-    
+    // console.log(this.getIndex(event));
   }
   @HostListener('dragover', ['$event']) private onDragOver(event: any): void {
-    
     event.preventDefault();
   }
   @HostListener('dragenter', ['$event']) private onDragEnter(event: any): void {
-    
+    // console.log(this.getIndex(event));
   }
   @HostListener('dragleave', ['$event']) private onDragLeave(event: any): void {
-    
+    // console.log(this.getIndex(event));
   }
   @HostListener('drop', ['$event']) private onDrop(event: any): void {
-    
+    // console.log(this.getIndex(event));
     event.preventDefault();
-    this.dragEndIndex = Number(event.target.attributes[4].nodeValue);
-    if (this.dragEndIndex >= 0)
-    {
+    this.dragEndIndex = this.getIndex(event);
+    if (this.dragEndIndex >= 0) {
       this.swapElements(this.dragStartIndex, this.dragEndIndex);
     }
   }
@@ -55,6 +52,14 @@ export class NgxReorderDirective {
     this._items[oldIndex] = this._items[newIndex];
     this._items[newIndex] = temp;
     this.sortedData.emit(this._items);
+  }
+
+  getIndex(event: any): number {
+    if (event.target.attributes && event.target.attributes['data-index'] && event.target.attributes['data-index'].nodeValue){
+       return event.target.attributes['data-index'].nodeValue;
+    } else {
+      return -1;
+    }
   }
 }
 
