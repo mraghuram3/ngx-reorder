@@ -10,3 +10,6 @@
     position: relative;
     padding:100px;
 }
+.border{
+    border: 1px dashed black;
+}
