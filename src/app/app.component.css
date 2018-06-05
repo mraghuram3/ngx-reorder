@@ -4,6 +4,10 @@
     background:lightblue;
     cursor: pointer;
     margin:8px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
 }
 .dragParn{
     float:left;
@@ -12,4 +16,5 @@
 }
 .border{
     border: 1px dashed black;
+    opacity: .5;
 }
