@@ -1,7 +1,10 @@
-import { Directive, ViewChildren, Input, Output, EventEmitter, HostListener } from '@angular/core';
+import { Directive, Input, Output, EventEmitter, HostListener } from '@angular/core';
+
+import { NgxReorderElementDirective } from './ngx-reorder-element.directive';
+
 
 @Directive({
-  selector: '[appNgxReorder]'
+  selector: '[ngxReorder]'
 })
 export class NgxReorderDirective {
 
@@ -22,31 +25,27 @@ export class NgxReorderDirective {
   @Output()
   dropTarget: EventEmitter<number> = new EventEmitter<number>();
 
+  @Output()
+  dragStart: EventEmitter<number> = new EventEmitter<number>();
+
 
   constructor() { }
 
-  // @HostListener('drag', ['$event']) private onDrag(event: any): void {
-  //   console.log(this.getIndex(event));
-  // }
   @HostListener('dragstart', ['$event']) private onDragStart(event: any): void {
     this.dragStartIndex = this.getIndex(event);
+    this.dragStart.emit(this.dragStartIndex);
   }
-  // @HostListener('dragend', ['$event']) private onDragEnd(event: any): void {
-  //   console.log(this.getIndex(event));
-  // }
+
+  @HostListener('dragend', ['$event']) private onDragEnd(event: any): void {
+    this.dragStart.emit(-1);
+  }
+
   @HostListener('dragover', ['$event']) private onDragOver(event: any): void {
     event.preventDefault();
-    // console.log(this.getIndex(event));
     this.dropTarget.emit(this.getIndex(event));
   }
-  // @HostListener('dragenter', ['$event']) private onDragEnter(event: any): void {
-  //   console.log(this.getIndex(event));
-  // }
-  // @HostListener('dragleave', ['$event']) private onDragLeave(event: any): void {
-  //   console.log(this.getIndex(event));
-  // }
+
   @HostListener('drop', ['$event']) private onDrop(event: any): void {
-    // console.log(this.getIndex(event));
     event.preventDefault();
     this.dragEndIndex = this.getIndex(event);
     if (this.dragEndIndex >= 0) {
@@ -69,6 +68,5 @@ export class NgxReorderDirective {
       return -1;
     }
   }
-  
 }
 

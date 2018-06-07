@@ -7,7 +7,7 @@ import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/observable/fromEvent';
 
 @Directive({
-  selector: '[appNgxReorderElement]'
+  selector: '[ngxReorderElement]'
 })
 export class NgxReorderElementDirective  implements AfterViewInit {
 

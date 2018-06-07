@@ -1,4 +1,4 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div class="dragParn" appNgxReorder [items]="dataSort" (sortedData)="dataSort = $event;" (dropTarget)="target = $event;">
-  <div class="drag" appNgxReorderElement *ngFor="let r of dataSort;let i = index" [index]="i" [ngClass]="{'border':target == i}"> {{r.text}}</div>
+<div class="dragParn" ngxReorder [items]="dataSort" (sortedData)="dataSort = $event;" (dropTarget)="target = $event;" (dragStart)="startIndex = $event;">
+  <div class="drag" ngxReorderElement *ngFor="let r of dataSort;let i = index" [index]="i" [ngClass]="{'border':target == i,'opacity':startIndex == i}"> {{r.text}}</div>
 </div>
