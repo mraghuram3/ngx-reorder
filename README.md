@@ -1,27 +1,79 @@
-# NgxReorder
+# ngx-reorder 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
+Angular Directive To Reorder Elements.
 
-## Development server
+Live Demo : https://mraghuram3.github.io/#/ngx-reorder
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Installation
 
-## Code scaffolding
+To install this library, run:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```bash
+$ npm install ngx-reorder --save
+```
 
-## Build
+## Usage
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Import `NgxReoderModule` in the root module
 
-## Running unit tests
+```ts
+import { NgxReoderModule } from 'ngx-reorder';
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+@NgModule({
+  imports: [
+    // ...
+    NgxReoderModule,
+    ...
+  ]
+})
+```
 
-## Running end-to-end tests
+In your template
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```html
+  <div class="dragParn" ngxReorder [items]="dataSort" (sortedData)="dataSort = $event;" (dropTarget)="target = $event;" (dragStart)="startIndex = $event;">
+    <div class="drag" ngxReorderElement *ngFor="let r of dataSort;let i = index" [index]="i" [ngClass]="{'border':target == i,'opacity':startIndex == i}"> {{r?.text}}</div>
+  </div>
+```
+- **ngxReorder**
 
-## Further help
+    Add the directive to the div or other dom in which the elemnts are to be Reordered 
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+- **[items]**: any[]
+
+  TThe data which are to be sorted.
+
+- **(sortedData)="dataSort = $event;"**:
+
+  Whenever the elements are reorderd the sorted data output is fired and the data int he array is updated.
+
+- **(dropTarget)="target = $event;"**:
+
+  Target index to apply css class to the target element.
+
+- **(dragStart)="startIndex = $event;"**:
+
+  Start Index is the elements which is being dragged, to apply css.
+
+```ts
+target = -1;
+startIndex = -1;
+.....
+......
+```
+
+- **ngxReorderElement**
+
+  Add the directive to the div for row elements which are to be reorderd.
+
+- **[index]**: number.
+
+  To uniquely identify the elements.
+
+** include other inputs in ngxReorderElement row, like ngFor, index and [ngClass] **
+
+
+
+## License
+
+MIT © [Raghu Ram M](mailto:mraghuram3@gmail.com)
